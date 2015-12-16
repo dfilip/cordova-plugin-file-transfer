@@ -172,6 +172,9 @@ FileTransfer.prototype.upload = function(filePath, server, successCallback, erro
  * @param options {FileDownloadOptions} Optional parameters such as headers
  */
 FileTransfer.prototype.download = function(source, target, successCallback, errorCallback, trustAllHosts, options) {
+
+    console.log("source is "+source);
+
     argscheck.checkArgs('ssFF*', 'FileTransfer.download', arguments);
     var self = this;
 
@@ -221,6 +224,8 @@ FileTransfer.prototype.download = function(source, target, successCallback, erro
         errorCallback(error);
     };
 
+    source = source.replace(/%25/g, '%');
+    console.log("source is "+source);
     exec(win, fail, 'FileTransfer', 'download', [source, target, trustAllHosts, this._id, headers]);
 };
 
